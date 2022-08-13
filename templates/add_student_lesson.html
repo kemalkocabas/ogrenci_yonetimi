@@ -17,7 +17,7 @@
     <select class="form-control" name="lesson_name" required>
         <option value="">Choose Lesson</option>
         {% for lesson in lesson_list %}
-        <option value="{{ lesson.lesson_name }}">{{ lesson.lesson_name }}</option>
+        <option value="{{ lesson.id }}">{{ lesson.lesson_name }}</option>
         {% endfor %}
       </select>
     </div>
