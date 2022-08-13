@@ -1,6 +1,3 @@
-from enum import unique
-from statistics import mode
-from turtle import st
 from db_connect import db
 import datetime
 
@@ -20,9 +17,8 @@ class Student(db.Model):
    def __repr__(self) -> str:
       return self.name
 
-class Lessons(db.Model):
-   
 
+class Lessons(db.Model):
    id = db.Column('id', db.Integer, primary_key=True)
    lesson_name = db.Column('lesson_name', db.String(20), nullable=False)
    teacher_name = db.Column('teacher_name', db.String(20), nullable=False)
@@ -38,9 +34,6 @@ class Lessons(db.Model):
 
    def __repr__(self) -> str:
       return self.lesson_name
-   
-  
-
 
 
 class Grades(db.Model):
