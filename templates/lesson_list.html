@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-header py-3">
+    <h1 style="float: left;" class="h3 mb-2 text-gray-800">Lesson List</h1>
+   
+    <a href="add_lesson"><button style="float: right;" class="btn btn-primary">Add Lesson</button></a>
+</div>
+<div class="card-body">
+    
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Lesson Name</th>
+                <th>Teacher Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Lesson Name</th>
+                <th>Teacher Name</th>
+                <th></th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for lesson in lesson_list %}
+            <tr>
+               <td>{{ lesson.lesson_name }}</td>
+               <td>{{ lesson.teacher_name }}</td>
+               <td><a href="delete_lesson/{{ lesson.id }}"><button onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</button></a></td>
+            </tr>
+         {% endfor %}
+           
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-header py-3">
+    <h1 style="float: left;" class="h3 mb-2 text-gray-800">Student Details of {{ student.name }}</h1>
+    <a href="../add_notes/{{ number }}"><button style="float: right;" class="btn btn-primary">Add Notes</button></a>
+
+</div>
+<div class="card-body">
+    
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Lesson Name</th>
+                <th>Midterm</th>
+                <th>Final</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+              <th>Lesson Name</th>
+              <th>Midterm</th>
+              <th>Final</th>
+              <th>Notes</th>
+              
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for record in query %}
+            <tr>
+               <td>{{ record.lesson_name }}</td>
+               <td>{{ record.midterm }}</td>
+               <td>{{ record.final }}</td>
+               <td>{{ (record.midterm * 0.4) + (record.final*0.6) }}</td>
+
+            </tr>
+         {% endfor %}
+           
+        </tbody>
+    </table>
+</div>
+{% endblock %}

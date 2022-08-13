@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-header py-3">
+    <h1 style="float: left;margin-right: 120px;" class="h3 mb-2 text-gray-800">
+        {% if lesson %}
+        Student List By {{ lesson }}
+        {% else %}
+        Choose A Lesson From Dropdown
+        {% endif %}
+    </h1>
+    <form action="" method="post">
+    <div style="float: left;" class="col-sm-2">
+        <select required class="form-control" name="lesson_name">
+            <option value="">Choose Lesson</option>
+            {% for lesson in lesson_list %}
+            <option value="{{ lesson.lesson_name }}">{{ lesson.lesson_name }}</option>
+            {% endfor %}
+          </select> 
+        </div>
+        <button style="float: left;" class="btn btn-primary" value="Submit">Submit</button>
+
+    </form>       
+
+    <a href="add_student_lesson"><button style="float: right;" class="btn btn-primary">Add Student to Lesson</button></a>
+</div>
+<div class="card-body">
+    
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Age</th>
+                <th>Class</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Age</th>
+                <th>Class</th>
+                <th></th>
+
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for student in student_list %}
+            <tr>
+               <td>{{ student.name }}</td>
+               <td>{{ student.number }}</td>
+               <td>{{ student.age }}</td>
+               <td>{{ student._class }}</td>
+               <td><a href="student_details/{{ student.number }}"><button class="btn btn-success">Details</button></a></td>
+
+            </tr>
+         {% endfor %}
+           
+        </tbody>
+    </table>
+</div>
+{% endblock %}

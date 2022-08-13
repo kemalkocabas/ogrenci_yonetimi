@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-header py-3">
+    <h1 style="float: left;" class="h3 mb-2 text-gray-800">Logs</h1>
+   
+    <a href="add_lesson"><button style="float: right;" class="btn btn-primary">Add Lesson</button></a>
+</div>
+<div class="card-body">
+    
+<textarea name="" id="" cols="150" rows="50" disabled>
+    {% for log in logs %}
+    {{ log.log }}
+    {% endfor %}
+</textarea>
+{% endblock %}

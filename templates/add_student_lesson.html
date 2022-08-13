@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="card-header py-3">
+    <h1 style="float: left;" class="h3 mb-2 text-gray-800">Add Lesson</h1>
+     
+    <button style="float: right;" onclick="history.back()" class="btn btn-primary">Go Back</button>                       
+  </div>
+  <div class="card-body">
+      
+<form class="was-validated" action="{{request.path}}" method="post">
+<div class="form-group row mx-auto">
+<label for="name" class="col-sm-2 col-form-label">Lesson Name:</label>
+<div class="col-sm-4">
+    <select class="form-control" name="lesson_name" required>
+        <option value="">Choose Lesson</option>
+        {% for lesson in lesson_list %}
+        <option value="{{ lesson.lesson_name }}">{{ lesson.lesson_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+</div>
+
+
+<div class="form-group row mx-auto">
+  <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Select Student(s):</label>
+  <div class="col-sm-4">
+  <select required multiple class="form-control" name="get_students">
+    {% for student in student_list %}
+    <option value="{{ student.id }}">{{ student.name }}</option>
+    {% endfor %}
+  </select>
+</div>
+</div>
+
+
+
+<br>
+<div align="right" class="col-md-6" style="display:table;">
+  <p style="display: table-cell;">{{ message }}</p>
+<button style="display: table-cell;float: right;" type="submit" class="btn btn-primary" value="Submit">Submit</button>
+</div>
+
+
+
+</form>
+  </div>
+</div>
+{% endblock %}

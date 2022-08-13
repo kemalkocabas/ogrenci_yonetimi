@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="card-header py-3">
+    <h1 style="float: left;" class="h3 mb-2 text-gray-800">Add Notes to {{ student.name }}</h1>
+     
+    <button style="float: right;" onclick="history.back()" class="btn btn-primary">Go Back</button>                       
+  </div>
+  <div class="card-body">
+      
+<form class="was-validated" action="{{request.path}}" method="post">
+<div class="form-group row mx-auto">
+<label for="name" class="col-sm-2 col-form-label">Lesson Name:</label>
+<div class="col-sm-4">
+    <select required class="form-control" name="lesson_name">
+        <option value="">Choose Lesson</option>
+        {% for lesson in lesson_list %}
+        <option value="{{ lesson.id }}">{{ lesson.lesson_name }}</option>
+        {% endfor %}
+      </select> </div>
+</div>
+
+<div class="form-group row mx-auto">
+<label for="name" class="col-sm-2 col-form-label">Midterm:</label>
+<div class="col-sm-4">
+<input type="number" required class="form-control" name="midterm" placeholder="Enter midterm">
+</div>
+</div>
+
+<div class="form-group row mx-auto">
+    <label for="name" class="col-sm-2 col-form-label">Final:</label>
+    <div class="col-sm-4">
+    <input type="number" required class="form-control" name="final" placeholder="Enter final">
+    </div>
+    </div>
+
+
+<br>
+
+<div align="right" class="col-md-6" style="display:table;">
+  <p style="display: table-cell;">{{ message }}</p>
+<button style="display: table-cell;float: right;" type="submit" class="btn btn-primary" value="Submit">Submit</button>
+</div>
+
+
+
+</form>
+  </div>
+</div>
+{% endblock %}
