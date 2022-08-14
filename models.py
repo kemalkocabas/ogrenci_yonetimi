@@ -15,6 +15,12 @@ class Student(db.Model):
     age = db.Column('age', db.Integer, nullable=False)
     _class = db.Column('class', db.String(4), nullable=False)
 
+    def __init__(self, name, number, age, _class) -> None:
+        self.name = name
+        self.number = number
+        self.age = age
+        self._class = _class
+
     def __repr__(self) -> str:
         return self.name
 
@@ -25,6 +31,10 @@ class Lessons(db.Model):
                             unique=True, nullable=False)
     teacher_name = db.Column('teacher_name', db.String(20), nullable=False)
     student = db.relationship('Student', secondary=student_lesson)
+
+    def __init__(self, lesson_name, teacher_name) -> None:
+        self.lesson_name = lesson_name
+        self.teacher_name = teacher_name
 
     def __repr__(self) -> str:
         return self.lesson_name
@@ -37,10 +47,19 @@ class Grades(db.Model):
     student_id = db.Column('student_id', db.ForeignKey('student.id'))
     lesson_id = db.Column('lesson_id', db.ForeignKey('lessons.id'))
 
+    def __init__(self, midterm, final, student_id, lesson_id) -> None:
+        self.midterm = midterm
+        self.final = final
+        self.student_id = student_id
+        self.lesson_id = lesson_id
+
 
 class Logs(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     log = db.Column('log', db.String(60), nullable=False)
+
+    def __init__(self, log) -> None:
+        self.log = log
 
     def create_log(model: str, _type: str, *args: list[str]) -> str:
         date = datetime.datetime.now().strftime("%d.%m.%Y  %H:%M:%S")

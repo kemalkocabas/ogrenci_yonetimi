@@ -89,7 +89,7 @@ def show_student_by_lesson() -> str:
                            lesson_list=lesson_list, lesson=lesson)
 
 
-@app.route('/student_details/<int: number>')
+@app.route('/student_details/<number>')
 def student_details(number) -> str:
     student = db.session.query(Student.id, Student.name).filter(
         Student.number == number).one()
@@ -107,7 +107,7 @@ def student_details(number) -> str:
         query=query)
 
 
-@app.route('/add_notes/<int: number>', methods=['GET', 'POST'])
+@app.route('/add_notes/<number>', methods=['GET', 'POST'])
 def add_notes(number) -> str:
     student = db.session.query(Student.id, Student.name).filter(
         Student.number == number).one()
@@ -145,7 +145,7 @@ def add_notes(number) -> str:
         lesson_list=lesson_list)
 
 
-@app.route('/delete_student/<int: number>', methods=['GET'])
+@app.route('/delete_student/<number>', methods=['GET'])
 def delete_student(number) -> str:
     student_id = db.session.query(Student.id).filter(
         Student.number == number).one()[0]
@@ -172,7 +172,7 @@ def delete_student(number) -> str:
     return redirect(url_for('show_students'))
 
 
-@app.route('/delete_lesson/<int: id>', methods=['GET'])
+@app.route('/delete_lesson/<id>', methods=['GET'])
 def delete_lesson(id) -> str:
     lesson = Lessons.query.join(Lessons.student).filter(Lessons.id == id).all()
     student = Student.query.join(Lessons.student).filter(
