@@ -20,7 +20,6 @@ def add_student() -> str:
          log = Logs.create_log('Student', 'ADD', request.form['name'])
          db.session.add(Logs(log))        
          db.session.commit()
-
          return redirect(url_for('show_students'))
       return render_template('add_student.html')
    except IntegrityError:
@@ -36,7 +35,6 @@ def add_lesson() -> str:
          lesson = Lessons(request.form['name'], request.form['teacher_name'])
          db.session.add(lesson)
          log = Logs.create_log('Lessons', 'ADD', request.form['name'])
-      
          db.session.add(Logs(log))
          db.session.commit()
          return redirect(url_for('show_lessons'))
@@ -44,6 +42,7 @@ def add_lesson() -> str:
    except IntegrityError:
       message = "The lesson has already been added"
       return render_template('add_lesson.html', message=message) 
+
 
 @app.route("/add_student_lesson", methods=['GET', 'POST'])
 def add_student_lesson() -> str:
@@ -77,6 +76,7 @@ def show_student_by_lesson() -> str:
    student_list = Student.query.join(Lessons.student).filter(Lessons.lesson_name == lesson).all()
    return render_template('student_list_by_lesson.html', student_list=student_list, lesson_list=lesson_list, lesson=lesson)
 
+
 @app.route('/student_details/<number>')
 def student_details(number) -> str:
    student = db.session.query(Student.id, Student.name).filter(Student.number == number).one()
@@ -102,9 +102,9 @@ def add_notes(number: str) -> str:
       db.session.add(grades)
       db.session.add(Logs(log))
       db.session.commit()
-      return redirect(url_for('student_details', number=number))
-   
+      return redirect(url_for('student_details', number=number))   
    return render_template('add_notes.html', student=student, lesson_list=lesson_list)
+
 
 @app.route('/delete_student/<number>', methods=['GET'])
 def delete_student(number: str) -> str:
@@ -127,6 +127,7 @@ def delete_student(number: str) -> str:
    db.session.commit()
    return redirect(url_for('show_students'))
 
+
 @app.route('/delete_lesson/<id>', methods=['GET'])
 def delete_lesson(id: str) -> str:
    lesson = Lessons.query.join(Lessons.student).filter(Lessons.id == id).all()
@@ -143,6 +144,7 @@ def delete_lesson(id: str) -> str:
    db.session.add(Logs(grade_log))
    db.session.commit()
    return redirect(url_for('show_lessons'))   
+   
    
 @app.route('/logs')
 def logs() -> str:
