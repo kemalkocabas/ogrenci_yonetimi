@@ -26,7 +26,7 @@ class Student(db.Model):
 
 class Lessons(db.Model):
    id = db.Column('id', db.Integer, primary_key=True)
-   lesson_name = db.Column('lesson_name', db.String(20), nullable=False)
+   lesson_name = db.Column('lesson_name', db.String(20), unique=True, nullable=False)
    teacher_name = db.Column('teacher_name', db.String(20), nullable=False)
    student = db.relationship('Student', secondary=student_lesson)
   
@@ -81,6 +81,8 @@ class Logs(db.Model):
       elif _type == 'DEL':
          desc = f"{args[0]} has been deleted"
       return f"{date} - {model} - {_type} - {desc}"
+
+      
 #db.drop_all()
 db.create_all()
 

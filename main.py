@@ -28,21 +28,22 @@ def add_student() -> str:
          return render_template('add_student.html', message=message)
 
 
+
 @app.route("/add_lesson", methods=['GET', 'POST'])
 def add_lesson() -> str:
-   if request.method == 'POST':
-      lesson_list = Lessons.query.filter(Lessons.lesson_name == request.form['name']).all()
-      if lesson_list:
-         message = "The lesson has already been added"
-         return render_template('add_lesson.html', message=message)                          
-      lesson = Lessons(request.form['name'], request.form['teacher_name'])
-      log = Logs.create_log('Lessons', 'ADD', request.form['name'])
-      db.session.add(lesson)
-      db.session.add(Logs(log))
-      db.session.commit()
-      return redirect(url_for('show_lessons'))
-   return render_template('add_lesson.html')
-
+   try:
+      if request.method == 'POST':               
+         lesson = Lessons(request.form['name'], request.form['teacher_name'])
+         db.session.add(lesson)
+         log = Logs.create_log('Lessons', 'ADD', request.form['name'])
+      
+         db.session.add(Logs(log))
+         db.session.commit()
+         return redirect(url_for('show_lessons'))
+      return render_template('add_lesson.html')
+   except IntegrityError:
+      message = "The lesson has already been added"
+      return render_template('add_lesson.html', message=message) 
 
 @app.route("/add_student_lesson", methods=['GET', 'POST'])
 def add_student_lesson() -> str:
