@@ -50,6 +50,7 @@ def add_lesson() -> str:
         return render_template('add_lesson.html', message=message)
 
 
+
 @app.route("/add_student_lesson", methods=['GET', 'POST'])
 def add_student_lesson() -> str:
     lesson_list = Lessons.query.all()
